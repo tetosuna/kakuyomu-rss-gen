@@ -3,9 +3,10 @@ import urllib2
 import os
 from datetime import datetime
 from HTMLParser import HTMLParser
-from flask import Flask, g, make_response
+from flask import Flask, g, make_response, request
 from lxml import html
 import feedgenerator
+import urlparse
 
 app = Flask(__name__)
 
@@ -14,11 +15,12 @@ app = Flask(__name__)
 def before_request():
     g.domain = os.environ["MYDOMAIN"] if "MYDOMAIN" in os.environ else "http://www.frandle.work:8888"
     g.kakuyomu_domain = os.environ["KAKUYOMUDOMAIN"] if "KAKUYOMUDOMAIN" in os.environ else "https://kakuyomu.jp"
-    g.novel_url = os.environ["NOVELURL"] if "NOVELURL" in os.environ else "https://kakuyomu.jp/works/1177354054882154317"
+    g.novel_url_base = os.environ["NOVELURLBASE"] if "NOVELURLBASE" in os.environ else "https://kakuyomu.jp/works/"
 
 @app.route('/')
 def kakuyomu_rss():
-    htmltext = urllib2.urlopen(g.novel_url).read()
+    novel_id = request.args.get('novelid')
+    htmltext = urllib2.urlopen(urlparse.urljoin(g.novel_url_base, novel_id)).read()
     htmlobj = html.fromstring(htmltext)
     title = htmlobj.xpath('//title')[0].text
 
