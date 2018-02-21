@@ -5,7 +5,7 @@ docker-compose up -d --build
 ~~~
 # access
 feed  
-`http://<your host>:8888`
+`http://<your host>:8888?novelid=<kakuyomu novel id>`
 
 # customize
 
@@ -18,7 +18,7 @@ main:
   environment:
     - MYDOMAIN=www.frandle.work:8888
     - KAKUYOMUDOMAIN=https://kakuyomu.jp
-    - NOVELURL=https://kakuyomu.jp/works/1177354054882154317  # novels url
+    - NOVELURL=https://kakuyomu.jp/works/  # novels url base
   ports:
     - 8888:5000                                               # listening port
 ~~~
