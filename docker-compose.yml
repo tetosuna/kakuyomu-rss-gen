@@ -4,6 +4,6 @@ main:
   environment:
     - MYDOMAIN=www.frandle.work:8888
     - KAKUYOMUDOMAIN=https://kakuyomu.jp
-    - NOVELURLBASE=https://kakuyomu.jp/works
+    - NOVELURLBASE=https://kakuyomu.jp/works/
   ports:
     - 8888:5000
